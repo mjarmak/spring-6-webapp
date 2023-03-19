@@ -2,6 +2,7 @@ package guru.springframework.spring6webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,9 +20,8 @@ public class Publisher {
     private String city;
     private String state;
     private String zipCode;
-
-    @OneToMany(mappedBy = "publisher")
-    private Set<Book> books;
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.EAGER)
+    private Set<Book> books = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -71,6 +71,13 @@ public class Publisher {
         this.zipCode = zipCode;
     }
 
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
     @Override
     public String toString() {
         return "Publisher{" +
